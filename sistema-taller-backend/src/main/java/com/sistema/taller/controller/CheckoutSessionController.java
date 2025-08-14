@@ -1,7 +1,6 @@
 package com.sistema.taller.controller;
 
 import com.sistema.taller.model.EstadoFactura;
-import com.sistema.taller.model.Factura;
 import com.sistema.taller.model.PaymentIntentRequest;
 import com.sistema.taller.repository.FacturaRepository;
 import com.stripe.Stripe;
