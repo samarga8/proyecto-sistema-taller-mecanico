@@ -1,0 +1,187 @@
+
+body{
+    font-family: Nunito-Regular, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.invoice {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+
+}
+
+.invoice-header{
+    position: relative;
+    height: 150px;
+}
+
+.hero-background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, #445df1 70%, #a708e8 20%);
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+}
+
+.invoice-content{
+    position: relative;
+    top: -50%;
+    max-width: 700px;
+    margin: auto;
+}
+
+.row{
+    display: flex;
+}
+
+.col-left{
+    width: 65%;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo img{
+    max-width: 150px;
+}
+
+h2{
+    font-size: 17px;
+}
+
+.data-client{
+    margin: 20px;
+}
+
+.data-client h3{
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.date-number{
+    display: flex;
+    justify-content: space-between;
+}
+
+.table{
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+}
+
+.table th{
+    background: #333;
+    color: #fff;
+}
+
+.table th, .table td{
+    border: 1px solid #333;
+    padding: 10px;
+    text-align: left;
+}
+
+.summary{
+    margin: 20px;
+}
+
+.totals{
+    margin: 20px;
+    text-align: right;
+}
+
+.totals ul li{
+    list-style: none;
+    margin: 5px 0;
+}
+
+.invoice-footer{
+    position: relative;
+    height: 150px;
+    margin-top: 40px;
+}
+
+.company{
+    padding: 0 20px 20px 20px;
+    line-height: normal;
+    color: #000;
+}
+
+.signature{
+    text-align: center;
+    margin: 20px 0;
+}
+
+.line{
+    width: 40%;
+}
+
+.bussines-info{
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.bussines-info, .client{
+    padding: 0;
+    list-style: none;
+    line-height: 1.5;
+}
+
+.footer-background{
+    position: relative;
+    height: 150px;
+    background: linear-gradient(to left, #445df1 70%, #a708e8 30%);
+    clip-path: polygon(0 50%, 100% 0, 100% 100%, 0 100%);
+}
+
+.checkout-button-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+#checkout-button {
+    background: linear-gradient(to right, #445df1, #a708e8);
+    color: #fff;
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#checkout-button:hover {
+    background: linear-gradient(to right, #3445c7, #8706bb);
+}
+
+#btn-cancel{
+    background: linear-gradient(to right, #e53935, #d32f2f);
+    color: #fff;
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-left: 50px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+}
+
+#btn-cancel:hover {
+    background: linear-gradient(to right, #c62828, #b71c1c);
+}

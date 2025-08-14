@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pago con Stripe</title>
+    <link rel="stylesheet" href="./css/checkout.css">
+</head>
+<body>
+<div class="invoice">
+    <header class="invoice-header">
+        <div class="hero-background"></div>
+    </header>
+
+    <div class="invoice-content">
+        <div class="row">
+            <div class="col-left"></div>
+            <div class="header-content">
+                <div class="logo">
+                    <img src="./logo.jpg" alt="Logo Taller Mecánico">
+                    <h2>Taller Mecánico</h2>
+                </div>
+            </div>
+        </div>
+
+        <section class="data-client">
+            <h3>DATOS DEL CLIENTE</h3>
+            <ul class="client">
+                <li><strong>Nombre:</strong> <span id="cliente-nombre"></span></li>
+                <li><strong>Dirección:</strong> <span id="cliente-direccion"></span></li>
+                <li><strong>Mail:</strong> <span id="cliente-mail"></span></li>
+                <li><strong>Teléfono:</strong> <span id="cliente-telefono"></span></li>
+            </ul>
+        </section>
+
+        <section class="date-number">
+            <p><strong>Número factura:</strong> <span id="factura-numero"></span></p>
+            <p><strong>Fecha factura:</strong> <span id="factura-fecha"></span></p>
+        </section>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Concepto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody id="lineas-factura">
+            <!-- Aquí se cargarán dinámicamente las líneas de factura -->
+            </tbody>
+        </table>
+
+        <div class="summary">
+            <p><strong>Forma de pago:</strong> Transferencia</p>
+            <p><strong>Nota:</strong> El servicio tiene una garantía de 90 días.</p>
+        </div>
+
+        <section class="totals">
+            <ul class="total">
+                <li><strong>Subtotal:</strong> <span id="subtotal"></span></li>
+                <li><strong>IVA 21%:</strong> <span id="iva"></span></li>
+                <li><strong>Total:</strong> <span id="total-definitivo"></span></li>
+            </ul>
+        </section>
+
+        <footer class="invoice-footer">
+            <div class="company">
+                <div class="signature">
+                    <hr class="line">
+                    <p>Firma y sello</p>
+                </div>
+                <ul class="ul bussines-info">
+                    <li>Taller mecánico</li>
+                    <li>Calle Mayor 21</li>
+                    <li>tallerMecanico@gmail.com</li>
+                    <li>Teléfono: 000-000-000</li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+
+    <div class="footer-background"></div>
+
+</div>
+
+
+<script type="module">
+
+
+    const params = new URLSearchParams(window.location.search);
+    const facturaId = params.get('facturaId');
+
+    if (!facturaId) {
+        alert('Falta facturaId en la URL');
+    } else {
+        // Cargar datos de la factura
+        fetch(`/api/factura/${facturaId}`)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("cliente-nombre").textContent = data.cliente.nombre;
+                document.getElementById("cliente-direccion").textContent = data.cliente.direccion;
+                document.getElementById("cliente-mail").textContent = data.cliente.email;
+                document.getElementById("cliente-telefono").textContent = data.cliente.telefono;
+
+                document.getElementById("factura-numero").textContent = data.numero;
+                document.getElementById("factura-fecha").textContent = data.fecha;
+
+                const tbody = document.getElementById("lineas-factura");
+                let subtotal = 0;
+
+                data.lineas.forEach(linea => {
+                    const tr = document.createElement("tr");
+                    const totalLinea = linea.precio * linea.cantidad;
+                    subtotal += totalLinea;
+
+                    tr.innerHTML = `
+                        <td>${linea.concepto}</td>
+                        <td>${linea.cantidad}</td>
+                        <td>${linea.precio.toFixed(2)} €</td>
+                        <td>${totalLinea.toFixed(2)} €</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+                const iva = subtotal * 0.21;
+                const total = subtotal + iva;
+
+                document.getElementById("subtotal").textContent = subtotal.toFixed(2) + " €";
+                document.getElementById("iva").textContent = iva.toFixed(2) + " €";
+                document.getElementById("total-definitivo").textContent = total.toFixed(2) + " €";
+            })
+            .catch(error => {
+                console.error("Error al cargar la factura:", error);
+                alert("No se pudo cargar la factura.");
+            });
+    }
+
+    document.getElementById('checkout-button').addEventListener('click', async () => {
+        // Captura el HTML de la factura renderizada
+        const htmlFactura = document.querySelector(".invoice").outerHTML;
+        const emailCliente = document.getElementById("cliente-mail").textContent;
+
+        // Enviar la factura al backend para enviarla por correo
+        const emailRes = await fetch('/api/enviar-factura', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: emailCliente,
+                html: htmlFactura
+            })
+        });
+
+        if (!emailRes.ok) {
+            alert('Error al enviar la factura por correo.');
+            return;
+        }
+
+    });
+
+</script>
+</body>
+</html>
