@@ -1,21 +1,19 @@
 package com.sistema.taller.model.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.sistema.taller.model.Estado;
 
 public class FiltrosCitasDTO {
-    private String fecha;
+    private LocalDateTime fecha;
     private Long clienteId;
     private Long vehiculoId;
     private List<Estado> estado;
     private String busqueda;
-    public String getFecha() {
-        return fecha;
-    }
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
+
+
+   
     public Long getClienteId() {
         return clienteId;
     }
@@ -39,6 +37,12 @@ public class FiltrosCitasDTO {
     }
     public void setBusqueda(String busqueda) {
         this.busqueda = busqueda;
+    }
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
     }
 
     

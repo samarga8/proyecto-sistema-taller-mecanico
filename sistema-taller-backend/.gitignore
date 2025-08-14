@@ -32,5 +32,12 @@ build/
 ### VS Code ###
 .vscode/
 
+# Archivos de configuración sensibles
+src/main/resources/application.properties
+src/main/resources/application.yml
+src/main/resources/*.properties
+src/main/resources/*.yml
+
+# Otros archivos sensibles
 email.properties
 stripe.properties

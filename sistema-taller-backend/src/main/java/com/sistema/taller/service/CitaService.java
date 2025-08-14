@@ -1,12 +1,13 @@
 package com.sistema.taller.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sistema.taller.model.Cita;
 import com.sistema.taller.model.Empleado;
@@ -20,8 +21,9 @@ import com.sistema.taller.repository.CitaRepository;
 import com.sistema.taller.repository.ClienteRepository;
 import com.sistema.taller.repository.EmpleadoRepository;
 import com.sistema.taller.repository.VehiculoRepository;
-import com.sistema.taller.utils.ModelMapperConfig;
 
+
+@Service
 public class CitaService {
     @Autowired
     private CitaRepository citaRepository;
@@ -46,6 +48,7 @@ public class CitaService {
     }
 
     public RespuestaCitasDTO obtenerCitasFiltradas(FiltrosCitasDTO filtros) {
+
         List<Cita> citas;
     
         // Filtrado según el estado
